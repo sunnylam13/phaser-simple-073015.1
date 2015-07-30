@@ -25,6 +25,8 @@
 	// setup a new game
 	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', {preload: preload, create: create, update: update});
 
+	phG1.platforms;
+
 ////////////////////////////////////////////
 // 		END VARIABLES
 ////////////////////////////////////////////
@@ -45,17 +47,71 @@
 		this.game.load.image('sky','../assets/sky.png');
 		this.game.load.image('ground','../assets/platform.png');
 		this.game.load.image('star','../assets/star.png');
-		this.game.load.spritesheet('dude','../assets/dude.png');
+		this.game.load.spritesheet('dude','../assets/dude.png',32,48);
 	}
 
 	/* 
 	* this is where you actually create things you can see on the canvas
-	* 
+	* The order in which items are rendered in the display matches the order in which you create them. 
+		* this.game.add.sprite(0,0,'star');
+		* So if you wish to place a background behind the star sprite you would need to ensure that it was added as a sprite first, before the star.
+		* Under the hood game.add.sprite is creating a new Phaser.Sprite object and adding the sprite to the “game world”. 
+			* This world is where all your objects live, it can be compared to the Stage in Actionscript3.
+			* Note: The game world has no fixed size and extends infinitely in all directions, with 0, 0 being the center of it. For convenience Phaser places 0, 0 at the top left of your game for you, but by using the built-in Camera you can move around as needed.
+			* The world class can be accessed via game.world and comes with a lot of handy methods and properties to help you distribute your objects inside the world. It includes some simple properties like game.world.height, but also some more advanced ones that we will use in another tutorial.
+	* This is where we start to create the game world...
 	*/
 
 
 	function create () {
-		this.game.add.sprite(0,0,'star');
+		// this.game.add.sprite(0,0,'star');
+		
+		// we're going to use physics, so enable Arcade Physics system
+		phG1.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+		// a simple background for the game
+		phG1.game.add.sprite(0,0,'sky');
+
+		// the platforms group contains the ground and the 2 ledges we can jump on
+		phG1.platforms = phG1.game.add.group();
+
+		// we will enable physics for any object that is created in this group
+		phG1.platforms.enableBody = true;
+
+		// now we create the ground
+		phG1.ground = phG1.platforms.create(0,phG1.game.world.height - 64, 'ground');
+
+		// scale it to fit the width of the game (the original sprite is 400 x 32 in size)
+		phG1.ground.scale.setTo(2,2);
+
+		// this stops it from falling away when you jump on it
+		phG1.ground.body.immovable = true;
+
+		// ----------------------------------------
+		// LEDGES  ------------------
+		// ----------------------------------------
+			// now create 2 ledges
+			
+			// ................... LEDGE #1...................
+				// create ledge #1
+				phG1.ledge = phG1.platforms.create(400,400,'ground');
+
+				// make the ledge immovable
+				phG1.ledge.body.immovable = true;
+			// ...................END LEDGE #1 ...................
+			
+			// ................... LEDGE #2...................
+				// create ledge #2 and position
+				phG1.ledge = phG1.platforms.create(-150,250,'ground');
+
+				// make the ledge immovable
+				phG1.ledge.body.immovable = true;
+			// ...................END LEDGE #2 ...................
+			
+		// ----------------------------------------
+		// END LEDGES  ------------------
+		// ----------------------------------------
+
 	}
 
 
