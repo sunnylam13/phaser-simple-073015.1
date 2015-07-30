@@ -20,15 +20,9 @@
 		* Note that this object isn't required - Phaser supports a full State system allowing you to break your code into much cleaner single objects. 
 		* But for a simple Getting Started guide such as this we'll use this approach as it allows for faster prototyping.
 	*/
-
-	phG1.game_param = {
-		preload: phG1.preload,
-		create: phG1.create,
-		update: phG1.update
-	};
-
+	
 	// setup a new game
-	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', phG1.game_param);
+	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', {preload: preload, create: create, update: update});
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -40,12 +34,26 @@
 ////////////////////////////////////////////
 	// don't forget to call the function in EXECUTION CODE area before running
 
+	/* 
+	* load the assets we need for our game. You do this by putting calls to game.load inside of a function called preload. Phaser will automatically look for this function when it starts and load anything defined within it.
+	* 
+	*/
+
 	phG1.preload = function () {
-		// body...
+		this.game.load.image('sky','../assets/sky.png');
+		this.game.load.image('ground','../assets/platform.png');
+		this.game.load.image('star','../assets/star.png');
+		this.game.load.spritesheet('dude','../assets/dude.png');
 	}
 
+	/* 
+	* this is where you actually create things you can see on the canvas
+	* 
+	*/
+
+
 	phG1.create = function () {
-		// body...
+		this.game.add.sprite(0,0,'star');
 	}
 
 	phG1.update = function () {
