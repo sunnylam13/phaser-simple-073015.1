@@ -61,15 +61,15 @@
 
 	/* 
 	* load the assets we need for our game. You do this by putting calls to game.load inside of a function called preload. Phaser will automatically look for this function when it starts and load anything defined within it.
-	* 
+	* WARNING:  Do not use ../assets because when you load it to the live server it accesses your WordPress root directory and not the examples directory...
 	*/
 
 
 	function preload () {
-		this.game.load.image('sky','../assets/sky.png');
-		this.game.load.image('ground','../assets/platform.png');
-		this.game.load.image('star','../assets/star.png');
-		this.game.load.spritesheet('dude','../assets/dude.png',32,48);
+		this.game.load.image('sky','assets/sky.png');
+		this.game.load.image('ground','assets/platform.png');
+		this.game.load.image('star','assets/star.png');
+		this.game.load.spritesheet('dude','assets/dude.png',32,48);
 	}
 
 	/* 
