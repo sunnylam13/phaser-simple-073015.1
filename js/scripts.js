@@ -42,7 +42,12 @@
 
 	// this is the stars group... so the player can pick them up
 	phG1.stars;
-	// var stars;
+
+	// now to add scoring capability
+	// make use of a Phaser.Text object. 
+	// Here we create two new variables, one to hold the actual score and the text object itself
+	phG1.score = 0;
+	phG1.scoreText;
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -191,8 +196,9 @@
 			* Bounce is a value between 0 (no bounce at all) and 1 (a full bounce). Ours will bounce somewhere between 0.7 and 0.9. 
 				* If we were to run the code like this the stars would fall through the bottom of the game. 
 				* To stop that we need to check for their collision against the platforms in our update() loop
-				* game.physics.arcade.collide(stars, platforms);
-				* game.physics.arcade.overlap(player, stars, collectStar, null, this);
+					* game.physics.arcade.collide(stars, platforms);
+					* WARNING:  don't forget to add the stars to the update() physics!
+					* game.physics.arcade.overlap(player, stars, collectStar, null, this);
 			*/
 
 			// create the actual stars group and initiate it... create an instance
@@ -214,6 +220,23 @@
 			}
 		// ----------------------------------------
 		// END STARS FOR COLLECTING  ------------------
+		// ----------------------------------------
+
+		// ----------------------------------------
+		// SCORING  ------------------
+		// ----------------------------------------
+			/* 
+			* you need to update the score whenever the player collects a star
+			* 16x16 is the coordinate to display the text at. 
+			* 'score: 0' is the default string to display and... 
+			* the object that follows contains a font size and fill colour. 
+			* By not specifying which font we'll actually use the browser will default, so on Windows it will be Arial. 
+			* Next we need to modify the collectStar function so that when the player picks-up a star their score increases and the text is updated to reflect this...  see collectStar()
+			*/
+
+			phG1.scoreText = phG1.game.add.text(16,16,'score: 0',{fontSize:'32px',fill:'#000'});
+		// ----------------------------------------
+		// END SCORING  ------------------
 		// ----------------------------------------
 
 		// ----------------------------------------
@@ -335,6 +358,10 @@
 	function collectStar (player,star) {
 		// removes the star from the screen
 		star.kill();
+
+		// add and update the score
+		phG1.score += 10;
+		phG1.scoreText.text = 'Score: ' + phG1.score;
 	}
 
 ////////////////////////////////////////////
