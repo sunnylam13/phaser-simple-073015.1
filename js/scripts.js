@@ -28,7 +28,7 @@
 	};
 
 	// setup a new game
-	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, '', phG1.game_param);
+	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', phG1.game_param);
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -39,8 +39,6 @@
 // 		FUNCTIONS
 ////////////////////////////////////////////
 	// don't forget to call the function in EXECUTION CODE area before running
-
-	// NOTE:  in terms of organization, Ryan prefers to put all other functions and variables above the object.init() method however in reality it doesn't matter
 
 	phG1.preload = function () {
 		// body...
