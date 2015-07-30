@@ -22,7 +22,7 @@ gulp.task('jade', function() {
 
 	// using src = ./*.jade causes index.layout.jade to also compile which we don't want... unless we have multiple main directory files... in which case we do use ./*.jade
 	// otherwise use src = ./index.jade if there aren't other jade files in ./ (i.e. contact.jade, about.jade, etc.)
-	return gulp.src('./index.jade')
+	return gulp.src('./*.jade')
 		.pipe(plumber())
 		.pipe(jade({
 			locals: jade_locals,
