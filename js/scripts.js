@@ -128,7 +128,7 @@
 			* 
 			*/
 
-			phG1.player = game.add.sprite(32,phG1.game.world.height - 150,'dude');
+			phG1.player = phG1.game.add.sprite(32,phG1.game.world.height - 150,'dude');
 
 			// enable physics on the player
 			phG1.game.physics.arcade.enable(phG1.player);
