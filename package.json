@@ -17,7 +17,7 @@
   ],
   "author": "Sunny Lam",
   "license": "MIT",
-  "homepage": "https://github.com/sunnylam13/phaser-simple-073015.1.git#readme",
+  "homepage": "https://github.com/sunnylam13/phaser-simple-073015.1#readme",
   "devDependencies": {
     "browser-sync": "^2.7.3",
     "gulp": "^3.8.11",
