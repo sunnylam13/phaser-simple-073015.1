@@ -27,6 +27,8 @@
 
 	// this variable helps with creating ledges
 	phG1.platforms;
+	phG1.player;
+	phG1.cursors;
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -134,6 +136,13 @@
 			phG1.game.physics.arcade.enable(phG1.player);
 
 			// player physics properties...  give the little guy a slight bounce...
+			/* 
+			* phG1.player.body.gravity.y = 300;
+				* This is an arbitrary value, but logically, the higher the value, the heavier your object feels and the quicker it falls. If you add this to your code or run part5.html you will see that the player falls down without stopping, completely ignoring the ground we created earlier...
+				* The reason for this is that we're not yet testing for collision between the ground and the player. We already told Phaser that our ground and ledges would be immovable. 
+				* Had we not done that when the player collided with them it would stop for a moment and then everything would have collapsed. This is because unless told otherwise, the ground sprite is a moving physical object (also known as a dynamic body) and when the player hits it, the resulting force of the collision is applied to the ground, therefore, the two bodies exchange their velocities and ground starts falling as well.
+			* 
+			*/
 			phG1.player.body.bounce.y = 0.2;
 			phG1.player.body.gravity.y = 300;
 			phG1.player.body.collideWorldBounds = true;
@@ -150,15 +159,107 @@
 
 			phG1.player.animations.add('left',[0,1,2,3],10,true);
 			phG1.player.animations.add('right',[5,6,7,8],10,true);
+
 		// ----------------------------------------
 		// END PLAYER ONE  ------------------
+		// ----------------------------------------
+
+		// ----------------------------------------
+		// CONTROLS  ------------------
+		// ----------------------------------------
+			/* 
+			* Colliding is all good and well, but we really need the player to move. You would probably think of heading to the documentation and searching about how to add an event listener, but that is not necessary here. 
+			* Phaser has a built-in Keyboard manager and one of the benefits of using that is this handy little function
+			* This populates the cursors object with four properties: up, down, left, right, that are all instances of Phaser.Key objects.
+			* then add some more polling functions in update()
+			* 
+			*/
+
+
+			phG1.cursors = phG1.game.input.keyboard.createCursorKeys();
+		// ----------------------------------------
+		// END CONTROLS  ------------------
 		// ----------------------------------------
 
 	}
 
 
 	function update () {
-		// body...
+
+		// ----------------------------------------
+		// PHYSICS  ------------------
+		// ----------------------------------------
+			/* 
+			* So to allow the player to collide and take advantage of the physics properties we need to introduce a collision check in the update function
+			* 
+			*/
+
+			// collide the player and the stars with the platforms
+			// you include the variables of the objects that are subject to this new physics law of your game world
+			phG1.game.physics.arcade.collide(phG1.player,phG1.platforms);
+
+			// reset the player's velocity (movement)
+			phG1.player.body.velocity.x = 0;
+		// ----------------------------------------
+		// END PHYSICS  ------------------
+		// ----------------------------------------
+		
+		// ----------------------------------------
+		// CONTROLS  ------------------
+		// ----------------------------------------
+		
+			/* 
+			* The first thing we do is reset the horizontal velocity on the sprite. 
+			* Then we check to see if the left cursor key is held down. 
+				* If it is we apply a negative horizontal velocity and start the 'left' running animation. 
+			* If they are holding down 'right' instead we literally do the opposite. 
+			* By clearing the velocity and setting it in this manner, every frame, it creates a 'stop-start' style of movement.
+			* The player sprite will move only when a key is held down and stop immediately they are not. 
+			* Phaser also allows you to create more complex motions, with momentum and acceleration, but this gives us the effect we need for this game. 
+			* The final part of the key check sets the frame to 4 if no key is held down. 
+				* Frame 4 in the sprite sheet is the one of the player looking at you, idle.
+			* 
+			*/
+
+
+
+			if (phG1.cursors.left.isDown) {
+				// move to the left by x pixels
+				phG1.player.body.velocity.x = -150;
+				// run the animation named...
+				phG1.player.animations.play('left');
+			}
+			else if (phG1.cursors.right.isDown) {
+				// move to the right by x pixels
+				phG1.player.body.velocity.x = 150;
+				// run the animation named...
+				phG1.player.animations.play('right');
+			}
+			else {
+				// stand still...
+				// stop all animations
+				phG1.player.animations.stop();
+
+				phG1.player.frame = 4;
+			}
+
+			// allow the player to jump if they are touching the ground...
+			/* 
+			* The final part of the code adds the ability to jump. 
+			* The up cursor is our jump key and we test if that is down. 
+			* However we also test if the player is touching the floor, otherwise they could jump while in mid-air. 
+			* If both of these conditions are met we apply a vertical velocity of 350 px/sec sq. 
+			* The player will fall to the ground automatically because of the gravity value we applied to it. 
+			* 
+			*/
+
+			if (phG1.cursors.up.isDown && phG1.player.body.touching.down) {
+				phG1.player.body.velocity.y = -350;
+			}
+		// ----------------------------------------
+		// END CONTROLS  ------------------
+		// ----------------------------------------
+
 	}
 
 ////////////////////////////////////////////
