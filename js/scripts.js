@@ -54,11 +54,11 @@
 	* this is where you actually create things you can see on the canvas
 	* The order in which items are rendered in the display matches the order in which you create them. 
 		* this.game.add.sprite(0,0,'star');
-		* So if you wish to place a background behind the star sprite you would need to ensure that it was added as a sprite first, before the star.
-		* Under the hood game.add.sprite is creating a new Phaser.Sprite object and adding the sprite to the “game world”. 
-			* This world is where all your objects live, it can be compared to the Stage in Actionscript3.
-			* Note: The game world has no fixed size and extends infinitely in all directions, with 0, 0 being the center of it. For convenience Phaser places 0, 0 at the top left of your game for you, but by using the built-in Camera you can move around as needed.
-			* The world class can be accessed via game.world and comes with a lot of handy methods and properties to help you distribute your objects inside the world. It includes some simple properties like game.world.height, but also some more advanced ones that we will use in another tutorial.
+	* So if you wish to place a background behind the star sprite you would need to ensure that it was added as a sprite first, before the star.
+	* Under the hood game.add.sprite is creating a new Phaser.Sprite object and adding the sprite to the “game world”. 
+		* This world is where all your objects live, it can be compared to the Stage in Actionscript3.
+		* Note: The game world has no fixed size and extends infinitely in all directions, with 0, 0 being the center of it. For convenience Phaser places 0, 0 at the top left of your game for you, but by using the built-in Camera you can move around as needed.
+		* The world class can be accessed via game.world and comes with a lot of handy methods and properties to help you distribute your objects inside the world. It includes some simple properties like game.world.height, but also some more advanced ones that we will use in another tutorial.
 	* This is where we start to create the game world...
 	*/
 
@@ -70,6 +70,7 @@
 		phG1.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		// a simple background for the game
+		// The first part is the same as the star sprite we had before, only instead we changed the key to 'sky' and it has displayed our sky background instead. This is an 800x600 PNG that fills the game screen.
 		phG1.game.add.sprite(0,0,'sky');
 
 		// the platforms group contains the ground and the 2 ledges we can jump on
