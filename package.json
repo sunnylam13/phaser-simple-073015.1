@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+"
+    "url": "git+https://github.com/sunnylam13/phaser-simple-073015.1.git"
   },
   "keywords": [
     "3D",
@@ -17,7 +17,7 @@
   ],
   "author": "Sunny Lam",
   "license": "MIT",
-  "homepage": "#readme",
+  "homepage": "https://github.com/sunnylam13/phaser-simple-073015.1.git#readme",
   "devDependencies": {
     "browser-sync": "^2.7.3",
     "gulp": "^3.8.11",
