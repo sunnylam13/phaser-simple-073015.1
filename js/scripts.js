@@ -19,10 +19,11 @@
 		* Their use is thoroughly explained here. 
 		* Note that this object isn't required - Phaser supports a full State system allowing you to break your code into much cleaner single objects. 
 		* But for a simple Getting Started guide such as this we'll use this approach as it allows for faster prototyping.
+		* WARNING:  if using object name spacing you cannot use phG1.preload for example... you MUST use this.preload, this.create, this.update or it throws an error!
 	*/
-	
+
 	// setup a new game
-	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', {preload: preload, create: create, update: update});
+	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', {preload: this.preload, create: this.create, update: this.update});
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -44,6 +45,13 @@
 		this.game.load.image('ground','../assets/platform.png');
 		this.game.load.image('star','../assets/star.png');
 		this.game.load.spritesheet('dude','../assets/dude.png');
+	}	
+
+	function preload () {
+		this.game.load.image('sky','../assets/sky.png');
+		this.game.load.image('ground','../assets/platform.png');
+		this.game.load.image('star','../assets/star.png');
+		this.game.load.spritesheet('dude','../assets/dude.png');
 	}
 
 	/* 
@@ -51,12 +59,19 @@
 	* 
 	*/
 
-
 	phG1.create = function () {
 		this.game.add.sprite(0,0,'star');
 	}
 
+	function create () {
+		this.game.add.sprite(0,0,'star');
+	}
+
 	phG1.update = function () {
+		// body...
+	}
+
+	function update () {
 		// body...
 	}
 
