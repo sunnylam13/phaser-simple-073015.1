@@ -25,6 +25,7 @@
 	// setup a new game
 	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', {preload: preload, create: create, update: update});
 
+	// this variable helps with creating ledges
 	phG1.platforms;
 
 ////////////////////////////////////////////
@@ -111,6 +112,26 @@
 			
 		// ----------------------------------------
 		// END LEDGES  ------------------
+		// ----------------------------------------
+
+		// ----------------------------------------
+		// PLAYER ONE  ------------------
+		// ----------------------------------------
+			phG1.player = game.add.sprite(32,phG1.game.world.height - 150,'dude');
+
+			// enable physics on the player
+			phG1.game.physics.arcade.enable(phG1.player);
+
+			// player physics properties...  give the little guy a slight bounce...
+			phG1.player.body.bounce.y = 0.2;
+			phG1.player.body.gravity.y = 300;
+			phG1.player.body.collideWorldBounds = true;
+
+			// player animations...  walking left and right
+			phG1.player.animations.add('left',[0,1,2,3],10,true);
+			phG1.player.animations.add('right',[5,6,7,8],10,true);
+		// ----------------------------------------
+		// END PLAYER ONE  ------------------
 		// ----------------------------------------
 
 	}
