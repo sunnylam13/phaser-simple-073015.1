@@ -40,6 +40,10 @@
 	// this is the cursor
 	phG1.cursors;
 
+	// this is the stars group... so the player can pick them up
+	phG1.stars;
+	// var stars;
+
 ////////////////////////////////////////////
 // 		END VARIABLES
 ////////////////////////////////////////////
@@ -175,6 +179,44 @@
 		// ----------------------------------------
 
 		// ----------------------------------------
+		// STARS FOR COLLECTING  ------------------
+		// ----------------------------------------
+			/* 
+			* create the stars for the player to collect
+			*
+			* The process is similar to when we created the platforms Group. 
+			* Using a JavaScript 'for' loop we tell it to create 12 stars in our game. 
+				* They have an x coordinate of i * 70, which means they will be evenly spaced out in the scene 70 pixels apart. 
+				* As with the player we give them a gravity value so they'll fall down, and a bounce value so they'll bounce a little when they hit the platforms.
+			* Bounce is a value between 0 (no bounce at all) and 1 (a full bounce). Ours will bounce somewhere between 0.7 and 0.9. 
+				* If we were to run the code like this the stars would fall through the bottom of the game. 
+				* To stop that we need to check for their collision against the platforms in our update() loop
+				* game.physics.arcade.collide(stars, platforms);
+				* game.physics.arcade.overlap(player, stars, collectStar, null, this);
+			*/
+
+			// create the actual stars group and initiate it... create an instance
+			phG1.stars = phG1.game.add.group();
+
+			// enable physics for any star that is created in this group
+			phG1.stars.enableBody = true;
+
+			// create 12 of them even spaced apart
+			for (var i = 0; i < 12; i++) {
+				// create a star inside of the 'stars' group
+				phG1.star = phG1.stars.create(i * 70, 0, 'star');
+
+				// let gravity do its thing
+				phG1.star.body.gravity.y = 300;
+
+				// give each star a slightly random bounce value
+				phG1.star.body.bounce.y = 0.7 + Math.random() * 0.2;
+			}
+		// ----------------------------------------
+		// END STARS FOR COLLECTING  ------------------
+		// ----------------------------------------
+
+		// ----------------------------------------
 		// CONTROLS  ------------------
 		// ----------------------------------------
 			/* 
@@ -182,7 +224,8 @@
 			* Phaser has a built-in Keyboard manager and one of the benefits of using that is this handy little function
 			* This populates the cursors object with four properties: up, down, left, right, that are all instances of Phaser.Key objects.
 			* then add some more polling functions in update()
-			* 
+			*
+			* NOTE:  seems Controls should be the last thing created
 			*/
 
 
@@ -208,12 +251,29 @@
 			// you include the variables of the objects that are subject to this new physics law of your game world
 			phG1.game.physics.arcade.collide(phG1.player,phG1.platforms);
 
+			// collide the stars with the platforms
+			phG1.game.physics.arcade.collide(phG1.stars,phG1.platforms);
+
 			// reset the player's velocity (movement)
 			phG1.player.body.velocity.x = 0;
 		// ----------------------------------------
 		// END PHYSICS  ------------------
 		// ----------------------------------------
-		
+	
+		// ----------------------------------------
+		// STAR COLLISION/COLLECTION  ------------------
+		// ----------------------------------------
+			/* 
+			* Check to see if the player `overlaps` with any of the stars...
+			* if he does call the collectStar() function
+			* 
+			*/
+
+			phG1.game.physics.arcade.overlap(phG1.player,phG1.stars,collectStar,null,this);
+		// ----------------------------------------
+		// END STAR COLLISION/COLLECTION  ------------------
+		// ----------------------------------------
+
 		// ----------------------------------------
 		// CONTROLS  ------------------
 		// ----------------------------------------
@@ -270,6 +330,11 @@
 		// END CONTROLS  ------------------
 		// ----------------------------------------
 
+	}
+
+	function collectStar (player,star) {
+		// removes the star from the screen
+		star.kill();
 	}
 
 ////////////////////////////////////////////
