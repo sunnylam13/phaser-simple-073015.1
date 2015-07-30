@@ -1,19 +1,20 @@
-// NOTE:  if there are extensions or plugins included then variable names may overlap without you knowing hence why we want to use name spacing
-
-// NOTE:  if you had your objects and functions inside the jQuery(document).ready() you can't access the object within the console...  if you do it outside of it however you can access it at any time and anywhere, it's no longer trapped as a local variable or function within the jQuery(document).ready()
-
 ////////////////////////////////////////////
 // 		VARIABLES
 ////////////////////////////////////////////
-	// create an empty object... which is the start of the application
-	// you don't have to start it empty though... it is cleaner however
-	// the word app is too generic...
-	// you might use the initials of the website you're designing
 
-	var mcaApp = {};
+	var phG1 = {};
 
 	// then below there you can add things
-	mcaApp.twitter = "@sunnylam";
+	
+	// setup game parameters
+	phG1.game_param = {
+		preload: phG1.preload,
+		create: phG1.create,
+		update: phG1.update
+	};
+
+	// setup a new game
+	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, '', phG1.game_param);
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -27,6 +28,17 @@
 
 	// NOTE:  in terms of organization, Ryan prefers to put all other functions and variables above the object.init() method however in reality it doesn't matter
 
+	phG1.preload = function () {
+		// body...
+	}
+
+	phG1.create = function () {
+		// body...
+	}
+
+	phG1.update = function () {
+		// body...
+	}
 
 ////////////////////////////////////////////
 // 		END FUNCTIONS
@@ -39,7 +51,7 @@
 	// for storing various event listeners
 	// this method will be used to listen for the open and close events and trigger those methods
 	// Ryan C often uses this though Drew doesn't always
-	mcaApp.events = function () {
+	phG1.events = function () {
 		//
 	}
 ////////////////////////////////////////////
@@ -54,7 +66,7 @@
 	// method to initialize our application
 	// all our code will be put inside here
 	// you should not be defining things in here
-	mcaApp.init = function () {
+	phG1.init = function () {
 		this.events();
 	}
 ////////////////////////////////////////////
@@ -65,7 +77,7 @@
 // 		EXECUTION CODE
 ////////////////////////////////////////////
 	jQuery(document).ready(function($) {
-		mcaApp.init();
+		phG1.init();
 	});  //end doc.onready function
 ////////////////////////////////////////////
 // 		END EXECUTION CODE
