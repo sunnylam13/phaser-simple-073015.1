@@ -25,9 +25,19 @@
 	// setup a new game
 	phG1.game = new Phaser.Game(800,600, Phaser.AUTO, 'phaser-game-one', {preload: preload, create: create, update: update});
 
+	/* 
+	* GROUPS
+	* Groups are really powerful. As their name implies they allow you to group together similar objects and control them all as one single unit. You can also check for collision between Groups, and for this game we'll be using two different Groups, one of which is created in the code above for the platforms.
+	*/
+
+
 	// this variable helps with creating ledges
 	phG1.platforms;
+
+	// this is the player
 	phG1.player;
+
+	// this is the cursor
 	phG1.cursors;
 
 ////////////////////////////////////////////
