@@ -1,4 +1,6 @@
-# PHASER TRAINING PROJECT 073015.1
+# SIMPLE PHASER PROJECT 073015.1
+
+A simple 2D game for experimentation with the Phaser framework...
 
 ## Unix Locations
 cd ~/google\ drive/Programming\ Projects/phaser.project.073015.1/
