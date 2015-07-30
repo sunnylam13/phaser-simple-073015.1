@@ -7,6 +7,20 @@
 	// then below there you can add things
 	
 	// setup game parameters
+	/* 
+	* creating an instance of a Phaser.Game object and assigning it to a local variable called 'game'. 
+	* Calling it 'game' is a common practice, but not a requirement, and this is what you will find in the Phaser examples.
+	* The first two parameters are the width and the height of the canvas element that Phaser will create. In this case 800 x 600 pixels. Your game world can be any size you like, but this is the resolution the game will display in. 
+	* The third parameter can be either Phaser.CANVAS, Phaser.WEBGL, or Phaser.AUTO. 
+		* This is the rendering context that you want to use. The recommended parameter is Phaser.AUTO which automatically tries to use WebGL, but if the browser or device doesn't support it it'll fall back to Canvas.
+	* The fourth parameter is an empty string, this is the id of the DOM element in which you would like to insert the canvas element that Phaser creates. 
+		* As we've left it blank it will simply be appended to the body. 
+	* The final parameter is an object containing four references to Phasers essential functions. 
+		* Their use is thoroughly explained here. 
+		* Note that this object isn't required - Phaser supports a full State system allowing you to break your code into much cleaner single objects. 
+		* But for a simple Getting Started guide such as this we'll use this approach as it allows for faster prototyping.
+	*/
+
 	phG1.game_param = {
 		preload: phG1.preload,
 		create: phG1.create,
