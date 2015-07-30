@@ -117,6 +117,17 @@
 		// ----------------------------------------
 		// PLAYER ONE  ------------------
 		// ----------------------------------------
+			
+			/* 
+			* This creates a new sprite called 'player', positioned at 32 pixels by 150 pixels from the bottom of the game. 
+			* We're telling it to use the 'dude' asset previously loaded. 
+				* If you glance back to the preload function you'll see that 'dude' was loaded as a sprite sheet, not an image. 
+				* That is because it contains animation frames. 
+				* You can see 9 frames in total, 4 for running left, 1 for facing the camera and 4 for running right. 
+				* Note: Phaser supports flipping sprites to save on animation frames, but for the sake of this tutorial we'll keep it old school.
+			* 
+			*/
+
 			phG1.player = game.add.sprite(32,phG1.game.world.height - 150,'dude');
 
 			// enable physics on the player
@@ -128,6 +139,15 @@
 			phG1.player.body.collideWorldBounds = true;
 
 			// player animations...  walking left and right
+			/* 
+			* We define two animations called 'left' and 'right'. 
+			* The 'left' animation uses frames 0, 1, 2 and 3 and runs at 10 frames per second. 
+			* The 'true' parameter tells the animation to loop. 
+			* This is our standard run-cycle and we repeat it for running in the opposite direction. 
+			* With the animations set we create a few physics properties.
+			* 
+			*/
+
 			phG1.player.animations.add('left',[0,1,2,3],10,true);
 			phG1.player.animations.add('right',[5,6,7,8],10,true);
 		// ----------------------------------------
